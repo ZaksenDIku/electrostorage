@@ -2,6 +2,7 @@ package dk.kea.electrostorage.controller;
 
 import dk.kea.electrostorage.model.*;
 import dk.kea.electrostorage.repository.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -9,13 +10,11 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/inventory")
+@RequiredArgsConstructor
 public class InventoryController {
     private final PurchaseOrderRepository orders;
     private final ComponentRepository components;
     private final InventoryCountRepository counts;
-    public InventoryController(PurchaseOrderRepository orders, ComponentRepository components, InventoryCountRepository counts) {
-        this.orders = orders; this.components = components; this.counts = counts;
-    }
     @GetMapping
     public List<InventoryItem> getInventory() {
         Map<Long, Integer> received = new HashMap<>();

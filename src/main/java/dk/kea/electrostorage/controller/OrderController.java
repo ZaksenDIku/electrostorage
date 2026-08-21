@@ -2,6 +2,7 @@ package dk.kea.electrostorage.controller;
 
 import dk.kea.electrostorage.model.*;
 import dk.kea.electrostorage.repository.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -10,13 +11,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/orders")
+@RequiredArgsConstructor
 public class OrderController {
     private final PurchaseOrderRepository orders;
     private final SupplierRepository suppliers;
     private final ComponentRepository components;
-    public OrderController(PurchaseOrderRepository orders, SupplierRepository suppliers, ComponentRepository components) {
-        this.orders = orders; this.suppliers = suppliers; this.components = components;
-    }
     @GetMapping public List<PurchaseOrder> getOpenOrders() { return orders.findByReceivedDateIsNullOrderByIdDesc(); }
     @GetMapping("/{id}") public PurchaseOrder getOne(@PathVariable Long id) { return findOrder(id); }
 

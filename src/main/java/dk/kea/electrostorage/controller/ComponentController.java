@@ -2,6 +2,7 @@ package dk.kea.electrostorage.controller;
 
 import dk.kea.electrostorage.model.Component;
 import dk.kea.electrostorage.repository.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -9,12 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/components")
+@RequiredArgsConstructor
 public class ComponentController {
     private final ComponentRepository components;
     private final SupplierRepository suppliers;
-    public ComponentController(ComponentRepository components, SupplierRepository suppliers) {
-        this.components = components; this.suppliers = suppliers;
-    }
     @GetMapping public List<Component> getAll() { return components.findAll(); }
 
     @PostMapping
