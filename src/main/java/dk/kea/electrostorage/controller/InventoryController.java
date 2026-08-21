@@ -17,9 +17,7 @@ public class InventoryController {
     private final InventoryCountRepository counts;
     @GetMapping
     public List<InventoryItem> getInventory() {
-        Map<Long, Integer> received = new HashMap<>();
-        for (var order : orders.findAll()) if (order.isReceived())
-            for (var line : order.getLines()) received.merge(line.getComponent().getInternalNumber(), line.getQuantity(), Integer::sum);
+        Map<Long, Integer> received = orders.calculateReceivedQuantities();
         return received.entrySet().stream().map(entry -> {
             var component = components.findById(entry.getKey()).orElseThrow();
             var latest = counts.findFirstByComponentInternalNumberOrderByCountedAtDesc(entry.getKey()).orElse(null);
