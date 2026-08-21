@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ElektroStorage</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+<header>
+    <h1>ElektroStorage</h1>
+    <p>Enkel lagerstyring til elektronik</p>
+</header>
+<nav>
+    <button data-page="components">Komponenter</button>
+    <button data-page="orders">Ordrer</button>
+    <button data-page="inventory">Inventar</button>
+    <button data-page="assemblies">Styklister</button>
+</nav>
+<main>
+    <p id="message" class="message" hidden></p>
+    <section id="components" class="page">
+        <h2>Komponenter</h2>
+        <form id="component-form">
+            <input name="internalNumber" type="number" placeholder="Internt nummer" required>
+            <input name="name" placeholder="Navn" required>
+            <input name="externalNumber" placeholder="Eksternt varenummer" required>
+            <select name="supplierId" id="component-supplier" required></select>
+            <button type="submit">Tilføj komponent</button>
+        </form>
+        <div id="component-list"></div>
+    </section>
+    <section id="orders" class="page" hidden>
+        <h2>Ordrer, der ikke er modtaget</h2>
+        <form id="order-form">
+            <select name="supplierId" id="order-supplier" required></select>
+            <button type="submit">Opret ny ordre</button>
+        </form>
+        <div id="order-list"></div>
+    </section>
+    <section id="order-detail" class="page" hidden>
+        <button id="back-to-orders" class="secondary">← Tilbage</button>
+        <h2>Ordre <span id="order-number"></span></h2>
+        <div id="order-info"></div>
+        <form id="line-form">
+            <select name="componentNumber" id="line-component" required></select>
+            <input name="quantity" type="number" min="1" value="1" required>
+            <button type="submit">Tilføj vare</button>
+        </form>
+        <form id="send-form">
+            <input name="trackingCode" placeholder="Tracking-kode" required>
+            <input name="expectedDate" type="date" required>
+            <button type="submit">Marker som sendt</button>
+        </form>
+    </section>
+    <section id="inventory" class="page" hidden>
+        <h2>Inventar</h2>
+        <div id="inventory-list"></div>
+    </section>
+    <section id="assemblies" class="page" hidden>
+        <h2>Styklister</h2>
+        <div id="assembly-list"></div>
+    </section>
+</main>
+</body>
+</html>
